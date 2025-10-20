@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Mandelbrot extends JPanel {
-    private final int WIDTH = 800;
-    private final int HEIGHT = 800;
+    private final int WIDTH = 2000;
+    private final int HEIGHT = 1000;
     private final int MAX_ITER = 1000;
 
     public Mandelbrot() {
@@ -17,6 +17,7 @@ public class Mandelbrot extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        int color=0;
         for (int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
                 double zx = 0;
@@ -24,14 +25,16 @@ public class Mandelbrot extends JPanel {
                 double cX = (x - WIDTH/2.0) * 4.0/WIDTH;
                 double cY = (y - HEIGHT/2.0) * 4.0/HEIGHT;
                 int iter = 0;
+
                 while (zx*zx + zy*zy < 4 && iter < MAX_ITER) {
                     double tmp = zx*zx - zy*zy + cX;
                     zy = 2.0*zx*zy + cY;
                     zx = tmp;
                     iter++;
+                    color++;
                 }
-                int color = iter | (iter << 8);
-                g.setColor(new Color(color));
+
+                g.setColor(Color.green);
                 g.drawRect(x, y, 1, 1);
             }
         }
